@@ -1,4 +1,4 @@
-namespace TBAG
+namespace TBAG.Resources
 {
     class MenuItem
     {

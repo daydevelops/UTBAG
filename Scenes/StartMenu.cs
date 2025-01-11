@@ -1,26 +1,28 @@
 ﻿using System;
 using TBAG.Database;
+using TBAG.Resources;
 
-namespace TBAG
+namespace TBAG.Scenes
 {
     class StartMenu {
         
-        private readonly AppDbContext db = new AppDbContext();
+        private readonly AppDbContext _db = new AppDbContext();
         
         public void Start() {
             ShowStartMenu();
         }
         
-        public void StartGame() {
+        public void NewGame() {
             Console.WriteLine("Starting new game...");
-            // Code to start a new game
+            Game Game = new Game(_db);
+            Game.New();
         }
         
         private void ShowStartMenu() {
             string text = "Welcome to TBAG!";
             MenuItem[] items = new []
             {
-                new MenuItem("1","Start a new game", () => { StartGame();}),
+                new MenuItem("1","Start a new game", () => { NewGame();}),
                 new MenuItem("2","Load game", () => { ShowSaves();}),
                 new MenuItem("3","Help", () => { ShowHelp();}),
                 new MenuItem("4","Exit", () => { ExitGame();})
@@ -51,7 +53,7 @@ namespace TBAG
         
         private MenuItem[] GetSaves()
         {
-            var saves = db.Saves;
+            var saves = _db.Saves;
             if (saves.Count() == 0)
             {
                 return new MenuItem[0];
@@ -70,7 +72,8 @@ namespace TBAG
         public void LoadGame(int id)
         {
             Console.WriteLine("Loading game...");
-            // Code to load a game
+            Game Game = new Game(_db);
+            Game.FromSave(id);
         }
         
         private void ShowHelp()

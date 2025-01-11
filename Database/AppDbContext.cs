@@ -7,6 +7,7 @@ namespace TBAG.Database
     public class AppDbContext : DbContext
     {
         public DbSet<Save> Saves { get; set; }
+        public DbSet<Player> Players { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
